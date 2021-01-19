@@ -61,12 +61,12 @@ public partial class BestSeller : System.Web.UI.Page
 
         //Toggle Labels.
         item.FindControl("lblTitle").Visible = !isEdit;
-        item.FindControl("lblAuthor").Visible = !isEdit;
+        item.FindControl("lblStudio").Visible = !isEdit;
         item.FindControl("imgBooks").Visible = !isEdit;
 
         //Toggle TextBoxes.
         item.FindControl("txtTitle").Visible = isEdit;
-        item.FindControl("txtAuthor").Visible = isEdit;
+        item.FindControl("txtStudio").Visible = isEdit;
         item.FindControl("txtImage").Visible = isEdit;
     }
 
@@ -76,10 +76,10 @@ public partial class BestSeller : System.Web.UI.Page
         RepeaterItem item = (sender as LinkButton).Parent as RepeaterItem;
 
         //Finds the matching BS_ID in the row of data
-        int bookId = int.Parse((item.FindControl("lblBookId") as Label).Text);
+        int bookId = int.Parse((item.FindControl("lblAnimeId") as Label).Text);
         //Trim() allows data to be modified
         string name = (item.FindControl("txtTitle") as TextBox).Text.Trim();
-        string price = (item.FindControl("txtAuthor") as TextBox).Text.Trim();
+        string price = (item.FindControl("txtStudio") as TextBox).Text.Trim();
         string image = (item.FindControl("txtImage") as TextBox).Text.Trim();
 
         string constr = ConfigurationManager.ConnectionStrings["SunnyCS"].ConnectionString;
@@ -92,9 +92,9 @@ public partial class BestSeller : System.Web.UI.Page
                 //call the action UPDATE
                 cmd.Parameters.AddWithValue("@Action", "UPDATE");
                 //pass in new values
-                cmd.Parameters.AddWithValue("@BookId", bookId);
+                cmd.Parameters.AddWithValue("@AnimeId", bookId);
                 cmd.Parameters.AddWithValue("@Title", name);
-                cmd.Parameters.AddWithValue("@Author", price);
+                cmd.Parameters.AddWithValue("@Studio", price);
                 cmd.Parameters.AddWithValue("@Image", image);
                 cmd.Connection = con;
                 con.Open();
@@ -115,7 +115,7 @@ public partial class BestSeller : System.Web.UI.Page
     protected void OnDelete(object sender, EventArgs e)
     {
         RepeaterItem item = (sender as LinkButton).Parent as RepeaterItem;
-        int bookId = int.Parse((item.FindControl("lblBookId") as Label).Text);
+        int bookId = int.Parse((item.FindControl("lblAnimeId") as Label).Text);
 
         string constr = ConfigurationManager.ConnectionStrings["SunnyCS"].ConnectionString;
         using (SqlConnection con = new SqlConnection(constr))
@@ -124,7 +124,7 @@ public partial class BestSeller : System.Web.UI.Page
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Action", "DELETE");
-                cmd.Parameters.AddWithValue("@BookId", bookId);
+                cmd.Parameters.AddWithValue("@AnimeId", bookId);
                 cmd.Connection = con;
                 con.Open();
                 cmd.ExecuteNonQuery();

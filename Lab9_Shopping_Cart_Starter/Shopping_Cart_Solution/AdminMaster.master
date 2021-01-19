@@ -44,7 +44,7 @@
                             <a style="font-family: 'Oswald', sans-serif;">FEATURED</a>
                             <a style="font-family: 'Oswald', sans-serif;">DISCOVER</a>
                             <%--This link below will be the page we will code with all the products.--%>
-                            <a style="font-size: 10px;" href="BestSeller.aspx">SB's Bestsellers</a>
+                            <a style="font-size: 10px;" href="Admin-BestSeller.aspx">SB's Bestsellers</a>
                             <a style="font-size: 10px;" href="#">Biography</a>
                             <a style="font-size: 10px;" href="#">SB Classics</a>
                             <a style="font-size: 10px;" href="#">Book Graph</a>

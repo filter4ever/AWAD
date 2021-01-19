@@ -69,19 +69,19 @@
                 <asp:Repeater ID="Repeater1" runat="server">
                     <ItemTemplate>
                         <div style="width: 146px;">
-                            <asp:ImageButton ID="imgBooks" CssClass="bookimage" ImageUrl='<%#Eval("BS_Image") %>' runat="server" />
-                            <asp:TextBox ID="txtImage" Text='<%#Eval("BS_Image")%>' runat="server" Visible="False"></asp:TextBox>
+                            <asp:ImageButton ID="imgBooks" CssClass="bookimage" ImageUrl='<%#Eval("EL_Image") %>' runat="server" />
+                            <asp:TextBox ID="txtImage" Text='<%#Eval("EL_Image")%>' runat="server" Visible="False"></asp:TextBox>
                             <br />
 
-                            <asp:Label CssClass="booktitle" ID="lblTitle" runat="server" Text='<%#Eval("BS_Title")%>'></asp:Label>
-                            <asp:TextBox ID="txtTitle" Text='<%#Eval("BS_Title")%>' runat="server" Visible="False"></asp:TextBox>
+                            <asp:Label CssClass="booktitle" ID="lblTitle" runat="server" Text='<%#Eval("EL_Title")%>'></asp:Label>
+                            <asp:TextBox ID="txtTitle" Text='<%#Eval("EL_Title")%>' runat="server" Visible="False"></asp:TextBox>
                             <br />
 
-                            <asp:Label CssClass="bookauthor" ID="lblAuthor" runat="server" Text='<%#Eval("BS_Author") %>' Style="color: #48C9B0"></asp:Label>
-                            <asp:TextBox ID="txtAuthor" Text='<%#Eval("BS_Author") %>' runat="server" Visible="False"></asp:TextBox>
+                            <asp:Label CssClass="bookauthor" ID="lblStudio" runat="server" Text='<%#Eval("EL_Studio") %>' Style="color: #48C9B0"></asp:Label>
+                            <asp:TextBox ID="txtStudio" Text='<%#Eval("EL_Studio") %>' runat="server" Visible="False"></asp:TextBox>
                             <br />
 
-                            <asp:Label ID="lblBookId" runat="server" Text='<%# Eval("BS_ID") %>' Visible="False"></asp:Label>
+                            <asp:Label ID="lblAnimeId" runat="server" Text='<%# Eval("EL_ID") %>' Visible="False"></asp:Label>
                             <br />
 
                             <asp:LinkButton ID="lnkEdit" Text="Edit |" runat="server" OnClick="OnEdit" Font-Size="X-Small" />
