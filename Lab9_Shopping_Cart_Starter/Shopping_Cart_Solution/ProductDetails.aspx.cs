@@ -35,32 +35,57 @@ public partial class ProductDetails : BasePage
         lblGenre.Text = prod.Book_Genre;
 
         SqlConnection conn = new SqlConnection(constr);
+
         bool exists;
 
-        conn.Open();
-
-        String email = Session["Email"].ToString();
-        String getUserIdStr = "SELECT ID FROM REGISTRATION WHERE EMAIL = @EMAIL";
-        SqlCommand getUserId = new SqlCommand(getUserIdStr, conn);
-        getUserId.Parameters.AddWithValue("@EMAIL", email);
-        String userId = getUserId.ExecuteScalar().ToString();
-
-        Debug.WriteLine(userId);
-        Debug.WriteLine(prodID);
-
-        using (SqlCommand check = new SqlCommand("SELECT COUNT(*) FROM [EL_CART] WHERE EL_ID = @ANIMEID", conn))
-        {
-            check.Parameters.AddWithValue("@ANIMEID", prod.Product_ID);
-            exists = (int)check.ExecuteScalar() > 0;
-        }
-
-        conn.Close();
-
-        if (exists)
+        if (ShoppingCart.Instance.getAShopptingCartItem(prod.Product_ID) != null)
         {
             btnAddCart.Text = "ADDED TO CART";
             btnAddCart.Enabled = false;
         }
+
+        //conn.Open();
+
+
+        //if (!Session["Email"].ToString().Contains("Guest-")) {
+        //    String email = Session["Email"].ToString();
+        //    String getUserIdStr = "SELECT ID FROM REGISTRATION WHERE EMAIL = @EMAIL";
+        //    SqlCommand getUserId = new SqlCommand(getUserIdStr, conn);
+        //    getUserId.Parameters.AddWithValue("@EMAIL", email);
+        //    String userId = getUserId.ExecuteScalar().ToString();
+
+        //    Debug.WriteLine(userId);
+        //    Debug.WriteLine(prodID);
+
+        //    using (SqlCommand check = new SqlCommand("SELECT COUNT(*) FROM [EL_CART] WHERE EL_ID = @ANIMEID AND Id = @ID", conn))
+        //    {
+        //        check.Parameters.AddWithValue("@ANIMEID", prod.Product_ID);
+        //        check.Parameters.AddWithValue("@ID", userId);
+        //        exists = (int)check.ExecuteScalar() > 0;
+        //    }
+
+        //    conn.Close();
+        //}
+        //else
+        //{
+        //    string guestId = "Guest-" + newGUID.ToString();
+
+        //    using (SqlCommand check = new SqlCommand("SELECT COUNT(*) FROM [EL_CART] WHERE EL_ID = @ANIMEID AND Id = @ID", conn))
+        //    {
+        //        check.Parameters.AddWithValue("@ANIMEID", prod.Product_ID);
+        //        check.Parameters.AddWithValue("@ID", guestId);
+        //        exists = (int)check.ExecuteScalar() > 0;
+        //    }
+
+        //    conn.Close();
+        //}
+
+        //Debug.WriteLine(exists);
+        //if (exists)
+        //{
+        //    btnAddCart.Text = "ADDED TO CART";
+        //    btnAddCart.Enabled = false;
+        //}
 
         if (!IsPostBack)
         {
@@ -108,59 +133,112 @@ public partial class ProductDetails : BasePage
 
     public void btnAddToCart_Click(object sender, EventArgs e)
     {
-        SqlConnection conn = new SqlConnection(constr);
+        //Practical Shopping Cart
+        string iProductID = prod.Product_ID.ToString();
+        ShoppingCart.Instance.AddItem(iProductID, prod);
+        Response.Redirect(Request.Url.AbsoluteUri);
 
-        Product aProd = new Product();
+        ////Own Shopping Cart
+        //SqlConnection conn = new SqlConnection(constr);
 
-        bool exists;
+        //Product aProd = new Product();
+        //Guid newGUID = Guid.NewGuid();
 
-        //request ProdID from QueryString (PostBackURL)
-        string prodID = Request.QueryString["ProdID"].ToString();
-        prod = aProd.getProduct(prodID);
+        //bool exists;
 
-        conn.Open();
+        ////request ProdID from QueryString (PostBackURL)
+        //string prodID = Request.QueryString["ProdID"].ToString();
+        //prod = aProd.getProduct(prodID);
 
-        String email = Session["Email"].ToString();
-        String getUserIdStr = "SELECT ID FROM REGISTRATION WHERE EMAIL = @EMAIL";
-        SqlCommand getUserId = new SqlCommand(getUserIdStr, conn);
-        getUserId.Parameters.AddWithValue("@EMAIL", email);
-        String userId = getUserId.ExecuteScalar().ToString();
+        //conn.Open();
 
-        Debug.WriteLine(userId);
-        Debug.WriteLine(prodID);
+        //if (!Session["Email"].ToString().Contains("Guest-"))
+        //{
+        //    String email = Session["Email"].ToString();
+        //    String getUserIdStr = "SELECT ID FROM REGISTRATION WHERE EMAIL = @EMAIL";
+        //    SqlCommand getUserId = new SqlCommand(getUserIdStr, conn);
+        //    getUserId.Parameters.AddWithValue("@EMAIL", email);
+        //    String userId = getUserId.ExecuteScalar().ToString();
 
-        using (SqlCommand check = new SqlCommand("SELECT COUNT(*) FROM [EL_CART] WHERE EL_ID = @ANIMEID", conn))
-        {
-            check.Parameters.AddWithValue("@ANIMEID", prod.Product_ID);
-            exists = (int)check.ExecuteScalar() > 0;
-        }
+        //    Debug.WriteLine(userId);
+        //    Debug.WriteLine(prodID);
 
-        conn.Close();
+        //    using (SqlCommand check = new SqlCommand("SELECT COUNT(*) FROM [EL_CART] WHERE EL_ID = @ANIMEID AND Id = @ID", conn))
+        //    {
+        //        check.Parameters.AddWithValue("@ANIMEID", prod.Product_ID);
+        //        check.Parameters.AddWithValue("@ID", userId.ToString());
+        //        exists = (int)check.ExecuteScalar() > 0;
+        //    }
 
-        if (exists)
-        {
-            Response.Write("<script language=javascript>alert('Item Already in Cart!')</script>");
-        }
-        else
-        {
-            SqlCommand cmd = new SqlCommand("INSERT INTO [EL_CART] VALUES (@animeid, @userid, @title, @price, @quantity, @img)");
-            SqlDataAdapter sda = new SqlDataAdapter();
+        //    conn.Close();
 
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@animeid", prodID);
-            cmd.Parameters.AddWithValue("@userid", userId);
-            cmd.Parameters.AddWithValue("@title", prod.Product_Name);
-            cmd.Parameters.AddWithValue("@price", prod.Unit_Price);
-            cmd.Parameters.AddWithValue("@quantity", 1);
-            cmd.Parameters.AddWithValue("@img", prod.Product_Image);
+        //    if (exists)
+        //    {
+        //        Response.Write("<script language=javascript>alert('Item Already in Cart!')</script>");
+        //    }
+        //    else
+        //    {
+        //        SqlCommand cmd = new SqlCommand("INSERT INTO [EL_CART] VALUES (@animeid, @userid, @title, @price, @quantity, @img)");
+        //        SqlDataAdapter sda = new SqlDataAdapter();
 
-            cmd.Connection = conn;
+        //        cmd.CommandType = CommandType.Text;
+        //        cmd.Parameters.AddWithValue("@animeid", prodID);
+        //        cmd.Parameters.AddWithValue("@userid", userId);
+        //        cmd.Parameters.AddWithValue("@title", prod.Product_Name);
+        //        cmd.Parameters.AddWithValue("@price", prod.Unit_Price);
+        //        cmd.Parameters.AddWithValue("@quantity", 1);
+        //        cmd.Parameters.AddWithValue("@img", prod.Product_Image);
 
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
+        //        cmd.Connection = conn;
 
-            Response.Redirect(Request.Url.AbsoluteUri);
-        }
+        //        conn.Open();
+        //        cmd.ExecuteNonQuery();
+        //        conn.Close();
+
+        //        Response.Redirect(Request.Url.AbsoluteUri);
+        //    }
+        //}
+        //else
+        //{
+        //    string guestId = "Guest-" + newGUID.ToString();
+
+        //    Debug.WriteLine(guestId);
+        //    Session["Email"] = guestId;
+
+        //    using (SqlCommand check = new SqlCommand("SELECT COUNT(*) FROM [EL_CART] WHERE EL_ID = @ANIMEID AND Id = @ID", conn))
+        //    {
+        //        check.Parameters.AddWithValue("@ANIMEID", prod.Product_ID);
+        //        check.Parameters.AddWithValue("@ID", guestId);
+        //        exists = (int)check.ExecuteScalar() > 0;
+        //    }
+
+        //    conn.Close();
+
+        //    if (exists)
+        //    {
+        //        Response.Write("<script language=javascript>alert('Item Already in Cart!')</script>");
+        //    }
+        //    else
+        //    {
+        //        SqlCommand cmd = new SqlCommand("INSERT INTO [EL_CART] VALUES (@userid, @animeid, @title, @price, @quantity, @img)");
+        //        SqlDataAdapter sda = new SqlDataAdapter();
+
+        //        cmd.CommandType = CommandType.Text;
+        //        cmd.Parameters.AddWithValue("@userid", guestId);
+        //        cmd.Parameters.AddWithValue("@animeid", prodID);
+        //        cmd.Parameters.AddWithValue("@title", prod.Product_Name);
+        //        cmd.Parameters.AddWithValue("@price", prod.Unit_Price);
+        //        cmd.Parameters.AddWithValue("@quantity", 1);
+        //        cmd.Parameters.AddWithValue("@img", prod.Product_Image);
+
+        //        cmd.Connection = conn;
+
+        //        conn.Open();
+        //        cmd.ExecuteNonQuery();
+        //        conn.Close();
+
+        //        Response.Redirect(Request.Url.AbsoluteUri);
+        //    }
+        //}
     }
 }

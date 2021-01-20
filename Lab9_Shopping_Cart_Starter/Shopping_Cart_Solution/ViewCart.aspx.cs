@@ -4,119 +4,98 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
-using System.Diagnostics;
 
-public partial class _Default : BasePage
+public partial class ViewCart : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        double subtotal = 0;
-        double total = 0;
-
-        using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["SunnyCS"].ConnectionString))
+        if (!IsPostBack)
         {
-            string str = "SELECT * FROM EL_CART";
-            SqlCommand com = new SqlCommand(str, conn);
-            conn.Open();
-            SqlDataReader dr = com.ExecuteReader();
-            if (dr.HasRows)
-            {
-                foreach (GridViewRow row in gvCart.Rows)
-                {
-                    Label lblTotalPrice = row.FindControl("lblTotalPrice") as Label;
-                    string totalPrice = lblTotalPrice.Text;
-                    Debug.WriteLine(totalPrice);
-                    subtotal += Convert.ToDouble(lblTotalPrice.Text);
-                }
-
-                gvCart.FooterRow.Cells[0].Text = "Total";
-                gvCart.FooterRow.Cells[3].Text = subtotal.ToString("c");
-
-                lblSubtotal.Text = subtotal.ToString("C");
-                lblShipping.Text = 2.ToString("C");
-                lblTotal.Text = (total + subtotal + 2).ToString("c");
-            } 
-            else
-            {
-                Response.Write("<script language=javascript>alert('Cart Empty!')</script>");
-            }
+            LoadCart();
         }
-
-            
-
-        
     }
 
-    protected void gvCart_RowDelete(object sender, GridViewDeleteEventArgs e)
+    protected void LoadCart()
     {
-        int result = 0;
-        Product prod = new Product();
-        string ItemID = gvCart.DataKeys[e.RowIndex].Value.ToString();
-        Debug.WriteLine(ItemID);
-        result = prod.ItemDelete(ItemID);
+        //bind the Items inside the Session/ShoppingCart Instance with the Datagrid
+        gv_CartView.DataSource = ShoppingCart.Instance.Items;
+        gv_CartView.DataBind();
 
-        if (result > 0)
+        decimal shipping = 0.0m;
+        decimal subtotal = 0.0m;
+        decimal total = 0.0m;
+        decimal amountleft = 0.0m;
+
+        foreach (ShoppingCartItem item in ShoppingCart.Instance.Items)
         {
-            Response.Write("<script>alert('Item Removed successfully');</script>");
+            subtotal = subtotal + item.TotalPrice;
         }
-        else
+        if (subtotal < 30 && subtotal > 0)
         {
-            Response.Write("<script>alert('Item Removal NOT successful');</script>");
+            shipping = 5.0m;
+            total = subtotal + shipping;
+            amountleft = 30 - subtotal;
+            lblQualify.Visible = false;
+            lbl_AmtLeft.Visible = true;
+            Label1.Visible = true;
+            Label2.Visible = true;
         }
 
-        Response.Redirect("ViewCart.aspx");
+        if (subtotal == 0)
+        {
+            shipping = 0.0m;
+            amountleft = 30 - subtotal;
+            lblQualify.Visible = false;
+            lbl_AmtLeft.Visible = true;
+            Label1.Visible = true;
+            Label2.Visible = true;
+        }
+
+        if (subtotal > 30)
+        {
+            shipping = 0.0m;
+            total = subtotal + shipping;
+            lblQualify.Visible = true;
+            lbl_AmtLeft.Visible = false;
+            Label1.Visible = false;
+            Label2.Visible = false;
+        }
+
+        lbl_TotalPrice.Text = subtotal.ToString("C");
+        lbl_TotalPrice2.Text = total.ToString("C");
+        lbl_ShippingPrice.Text = shipping.ToString("C");
+        lbl_AmtLeft.Text = amountleft.ToString("C");
     }
 
-    protected void Cart_Total(object sender, GridViewRowEventArgs e)
+    protected void btnUpdate_Click(object sender, EventArgs e)
     {
-        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["SunnyCS"].ConnectionString);
-
-        double total = 0;
-        double price;
-
-        //conn.Open();
-
-        //String email = Session["Email"].ToString();
-        //String getUserIdStr = "SELECT ID FROM REGISTRATION WHERE EMAIL = @EMAIL";
-        //SqlCommand getUserId = new SqlCommand(getUserIdStr, conn);
-        //getUserId.Parameters.AddWithValue("@EMAIL", email);
-        //String userId = getUserId.ExecuteScalar().ToString();
-
-        //string getQuantityStr = "SELECT QUANTITY FROM EL_CART WHERE ID = @ID";
-        //SqlCommand getQuantity = new SqlCommand(getQuantityStr, conn);
-        //getQuantity.Parameters.AddWithValue("@ID", userId);
-        //String quantityStr = getQuantity.ExecuteScalar().ToString();
-
-        //string getPriceStr = "SELECT PRICE FROM EL_CART WHERE ID = @ID";
-        //SqlCommand getPrice = new SqlCommand(getPriceStr, conn);
-        //getPrice.Parameters.AddWithValue("@ID", userId);
-        //string priceStr = getPrice.ExecuteScalar().ToString();
-
-        //conn.Close();
-
-        //double quantity = Convert.ToDouble(quantityStr);
-        //double price = Convert.ToDouble(priceStr);
-        
-        foreach (GridViewRow row in gvCart.Rows)
+        foreach (GridViewRow row in gv_CartView.Rows)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
+            if (row.RowType == DataControlRowType.DataRow)
             {
-                Label lblTotalPrice = (e.Row.FindControl("lblTotalPrice") as Label);
-                Debug.WriteLine(lblTotalPrice.Text);
+                string productId = gv_CartView.DataKeys[row.RowIndex].Value.ToString();
 
-                price = double.Parse(lblTotalPrice.Text);
+                //row.Cells[2] means that the quantity textbox must be in column 3.
 
-                total += price;
-            }
-            else
-            {
-                total += 0;
+                int quantity = int.Parse(((TextBox)row.Cells[0].FindControl("tb_Quantity")).Text);
+                ShoppingCart.Instance.SetItemQuantity(productId, quantity);
             }
         }
+        LoadCart();
+    }
 
-        //Label lblTotalPrice = (Label)gvCart.FindControl("lblTotalPrice");
+    protected void gv_CartView_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName == "Remove")
+        {
+            string productId = e.CommandArgument.ToString();
+            ShoppingCart.Instance.RemoveItem(productId);
+            LoadCart();
+        }
+    }
+
+    protected void btnCheckOut_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Payment.aspx");
     }
 }
