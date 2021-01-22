@@ -46,7 +46,7 @@
                             <asp:TextBox ID="txt_Email" CssClass="inputtxt" PlaceHolder="Email Address" runat="server" TextMode="Email"></asp:TextBox>
                             <asp:TextBox ID="txt_Password" CssClass="inputtxt" PlaceHolder="Password" runat="server" TextMode="Password"></asp:TextBox>
                             <asp:CheckBox ID="CheckBox1" runat="server" Text="Remember Me" Checked="true" />
-                            <span class="psw"><a href="#">Forgot your password?</a></span><br />
+                            <span class="psw"><a href="#" onclick="document.getElementById('id01').style.display='none';document.getElementById('id04').style.display='block';">Forgot your password?</a></span><br />
                             <asp:Button ID="btnSignIn" class="btnsignin" runat="server" Text="Secure Sign In" OnClick="btnSignIn_Click" />
                         </div>
 
@@ -114,6 +114,15 @@
                                 <a onclick="document.getElementById('id01').style.display='block';document.getElementById('id03').style.display='none';" style="font-size: small;">Sign in as User</a>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div id="id04" class="modal">
+                    <div class="modal-content">
+                        <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">&times;</span>
+                        <p style="font-family: 'Playfair Display', serif; font-size: 20px; text-align: center;">Reset Password</p>
+                        <asp:TextBox ID="txt_ResetPwEmail" CssClass="inputtxt" PlaceHolder="Email Address" runat="server"></asp:TextBox>
+                        <asp:Button ID="btnResetPw" class="btnsignin" runat="server" Text="Reset Password" OnClick="btnResetPw_Click"/>
                     </div>
                 </div>
 

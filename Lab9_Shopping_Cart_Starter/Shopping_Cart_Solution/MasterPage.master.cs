@@ -8,6 +8,8 @@ using System.Data.SqlClient;
 using System.Configuration;
 using Salt_Password_Sample;
 using System.Diagnostics;
+using System.Net;
+using System.Net.Mail;
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
@@ -161,5 +163,66 @@ public partial class MasterPage : System.Web.UI.MasterPage
         }
 
         txt_AdminEmail.Text = "";
+    }
+
+    protected void btnResetPw_Click(object sender, EventArgs r)
+    {
+        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["SunnyCS"].ConnectionString);
+
+        conn.Open();
+
+        string checkuser = "SELECT COUNT(*) FROM [REGISTRATION] WHERE Email = @email";
+
+        SqlCommand com = new SqlCommand(checkuser, conn);
+        com.Parameters.AddWithValue("@email", txt_ResetPwEmail.Text);
+
+        int temp = Convert.ToInt32(com.ExecuteScalar().ToString());
+
+        conn.Close();
+
+        if (temp == 1)
+        {
+            conn.Open();
+
+            string getEmailStr = "SELECT EMAIL FROM REGISTRATION WHERE EMAIL = @EMAIL";
+            SqlCommand getEmailCom = new SqlCommand(getEmailStr, conn);
+            getEmailCom.Parameters.AddWithValue("@EMAIL", txt_ResetPwEmail.Text);
+
+            string getEmail = getEmailCom.ExecuteScalar().ToString();
+
+            MailAddress to = new MailAddress(getEmail);
+            MailAddress from = new MailAddress("servicedesk@element.com");
+
+            Random generator = new Random();
+            string otp = generator.Next(0, 1000000).ToString("D6");
+            string resetpw = "http://" + HttpContext.Current.Request.Url.Authority + "/ResetPassword.aspx";
+
+            MailMessage message = new MailMessage(from, to);
+            message.Subject = "Reset Password";
+            message.Body = string.Format("Your OTP is {0} <br />Reset Password <a href='{1}'>here</a>", otp, resetpw);
+            Debug.WriteLine(message.Body);
+
+            message.IsBodyHtml = true;
+
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential("12345678afif@gmail.com", "ivorycoast2343"),
+                EnableSsl = true
+            };
+
+            try
+            {
+                client.Send(message);
+            }
+            catch (SmtpException ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+        }
+        else
+        {
+            Response.Write("<script language=javascript>alert('Email does not exist')</script>");
+        }
     }
 }
