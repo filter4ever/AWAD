@@ -49,8 +49,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
         //else, insert 
         else
         {
-            string insertQuery = "INSERT INTO REGISTRATION (Id, First_Name, Last_Name, Email, Password) " +
-                "values (@id, @first, @last, @email, @password)";
+            string insertQuery = "INSERT INTO REGISTRATION (Id, First_Name, Last_Name, Email, Password, OTP) " +
+                "values (@id, @first, @last, @email, @password, null)";
 
             SqlCommand com = new SqlCommand(insertQuery, conn);
             string ePass = Hash.ComputeHash(txt_RegPassword.Text, "SHA512", null);
@@ -96,13 +96,62 @@ public partial class MasterPage : System.Web.UI.MasterPage
             SqlCommand pwcomm = new SqlCommand(checkPasswordQuery, conn);
             pwcomm.Parameters.AddWithValue("@email2", txt_Email.Text);
             string password = pwcomm.ExecuteScalar().ToString();
-            bool flag = Hash.VerifyHash(txt_Password.Text, "SHA512", password);//verifies password through hash function
+
+            bool flag = Hash.VerifyHash(txt_Password.Text, "SHA512", password); //verifies password through hash function
+            
+            conn.Close();
 
             if (flag == true)
             {
-                Session["CHANGE_MASTERPAGE"] = "~/AfterLogin.Master";
-                Session["CHANGE_MASTERPAGE2"] = null;
-                Response.Redirect(Request.Url.AbsoluteUri);
+                //Session["CHANGE_MASTERPAGE"] = "~/AfterLogin.Master";
+                //Session["CHANGE_MASTERPAGE2"] = null;
+                //Response.Redirect(Request.Url.AbsoluteUri);
+
+                conn.Open();
+
+                string getEmailStr = "SELECT EMAIL FROM REGISTRATION WHERE EMAIL = @EMAIL";
+                SqlCommand getEmailCom = new SqlCommand(getEmailStr, conn);
+                getEmailCom.Parameters.AddWithValue("@EMAIL", txt_Email.Text);
+
+                string getEmail = getEmailCom.ExecuteScalar().ToString();
+
+                MailAddress to = new MailAddress(getEmail);
+                MailAddress from = new MailAddress("servicedesk@element.com");
+
+                Random generator = new Random();
+                string otp = generator.Next(0, 1000000).ToString("D6");
+
+                MailMessage message = new MailMessage(from, to);
+                message.Subject = "Your OTP";
+                message.Body = string.Format("Your OTP is {0}", otp);
+                Debug.WriteLine(message.Body);
+
+                message.IsBodyHtml = true;
+
+                SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
+                {
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential("12345678afif@gmail.com", "ivorycoast2343"),
+                    EnableSsl = true
+                };
+
+                try
+                {
+                    client.Send(message);
+                    using (SqlCommand cmd = new SqlCommand("UPDATE REGISTRATION SET OTP = @OTP WHERE Email = @email", conn))
+                    {
+                        //checks if the email that the user has entered exists in the database table
+                        cmd.Parameters.AddWithValue("@OTP", otp);
+                        cmd.Parameters.AddWithValue("@Email", txt_Email.Text);
+                        Session["otp"] = getEmail;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (SmtpException ex)
+                {
+                    Debug.WriteLine(ex.ToString());
+                }
+                Response.Redirect("otp.aspx");
             }
             else
             {
@@ -193,13 +242,13 @@ public partial class MasterPage : System.Web.UI.MasterPage
             MailAddress to = new MailAddress(getEmail);
             MailAddress from = new MailAddress("servicedesk@element.com");
 
-            Random generator = new Random();
-            string otp = generator.Next(0, 1000000).ToString("D6");
+            //Random generator = new Random();
+            //string otp = generator.Next(0, 1000000).ToString("D6");
             string resetpw = "http://" + HttpContext.Current.Request.Url.Authority + "/ResetPassword.aspx";
 
             MailMessage message = new MailMessage(from, to);
             message.Subject = "Reset Password";
-            message.Body = string.Format("Your OTP is {0} <br />Reset Password <a href='{1}'>here</a>", otp, resetpw);
+            message.Body = string.Format("Reset Password <a href='{0}'>here</a>", resetpw);
             Debug.WriteLine(message.Body);
 
             message.IsBodyHtml = true;
@@ -214,6 +263,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
             try
             {
                 client.Send(message);
+                Session["resetPw"] = getEmail;
             }
             catch (SmtpException ex)
             {

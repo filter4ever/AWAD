@@ -107,5 +107,10 @@ public class ShoppingCart
         }
         return subTotal;
     }
+
+    public void clearShopCart()
+    {
+        Items.Clear();
+    }
 }
 

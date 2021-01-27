@@ -220,17 +220,17 @@
                 </div>
 
                 <asp:Button ID="btnCheckOut" type="button" runat="server" Text="CHECKOUT" class="checkoutbtn" OnClick="btnCheckOut_Click" />
-                <p style="font-size: 12px; text-align: center; font-weight: bold;">Or Checkout With</p>
+                <%--<p style="font-size: 12px; text-align: center; font-weight: bold;">Or Checkout With</p>--%>
             </div>
 
-            <div class="altpayment">
+            <%--<div class="altpayment">
                 <div class="paypalbtn">
                     <asp:Image ID="imgPaypal" ImageUrl="images/paypal.png" runat="server" Style="width: 95px; height: 30px; float: left; margin: 11px 5px 5px 86px" />
                 </div>
                 <div class="masterpass">
                     <asp:Image ID="imgMasterPass" ImageUrl="images/masterpass.png" runat="server" Style="width: 105px; height: 55px; float: left; margin: 0px 5px 5px 81px" />
                 </div>
-            </div>
+            </div>--%>
         </div>
     </body>
     </html>

@@ -14,7 +14,7 @@
         <div class="pagetitle">The Best Sellers</div>
         <br />
 
-        <div class="sidecontainer">
+        <%--<div class="sidecontainer">
             <div style="width: auto; height: auto; float: right">
                 <a style="font-family: 'Oswald', sans-serif;">CUSTOMER FAVOURITES</a>
                 <a href="#" style="font-family: 'Oswald', sans-serif; color: #48C9B0; font-size: 12.5px">Summer Reading</a>
@@ -54,7 +54,7 @@
                 <a href="#" style="font-family: 'Oswald', sans-serif; color: #48C9B0; font-size: 12.5px">Sports</a>
                 <a href="#" style="font-family: 'Oswald', sans-serif; color: #48C9B0; font-size: 12.5px">See All Categories</a>
             </div>
-        </div>
+        </div>--%>
 
         <div class="bookcontainer">
             <div class="containertitle">

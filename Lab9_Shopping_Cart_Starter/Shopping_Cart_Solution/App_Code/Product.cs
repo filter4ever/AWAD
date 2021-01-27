@@ -231,7 +231,83 @@ public class Thriller
     public int ThrillerInsert()
     {
         int result = 0;
-        string queryStrThriller = "INSERT INTO BS_Thriller(BS_ID, BS_Image, BS_Title, BS_Author)" + "values (@Product_ID, @Product_Name, @Product_Image, @Book_Author)";
+        string queryStrThriller = "INSERT INTO EL_Thriller(EL_ID, EL_Image, EL_Title, EL_Studio)" + "values (@Product_ID, @Product_Name, @Product_Image, @Book_Author)";
+
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStrThriller, conn);
+        cmd.Parameters.AddWithValue("@Product_ID", this.Product_ID);
+        cmd.Parameters.AddWithValue("@Product_Image", this.Product_Image);
+        cmd.Parameters.AddWithValue("@Product_Name", this.Product_Name);
+        cmd.Parameters.AddWithValue("@Book_Author", this.Book_Author);
+
+        conn.Open();
+        result += cmd.ExecuteNonQuery();
+        conn.Close();
+
+        return result;
+    }//end Insert
+
+    public int ActionInsert()
+    {
+        int result = 0;
+        string queryStrThriller = "INSERT INTO EL_Action(EL_ID, EL_Image, EL_Title, EL_Studio)" + "values (@Product_ID, @Product_Name, @Product_Image, @Book_Author)";
+
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStrThriller, conn);
+        cmd.Parameters.AddWithValue("@Product_ID", this.Product_ID);
+        cmd.Parameters.AddWithValue("@Product_Image", this.Product_Image);
+        cmd.Parameters.AddWithValue("@Product_Name", this.Product_Name);
+        cmd.Parameters.AddWithValue("@Book_Author", this.Book_Author);
+
+        conn.Open();
+        result += cmd.ExecuteNonQuery();
+        conn.Close();
+
+        return result;
+    }//end Insert
+
+    public int ComedyInsert()
+    {
+        int result = 0;
+        string queryStrThriller = "INSERT INTO EL_Comedy(EL_ID, EL_Image, EL_Title, EL_Studio)" + "values (@Product_ID, @Product_Name, @Product_Image, @Book_Author)";
+
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStrThriller, conn);
+        cmd.Parameters.AddWithValue("@Product_ID", this.Product_ID);
+        cmd.Parameters.AddWithValue("@Product_Image", this.Product_Image);
+        cmd.Parameters.AddWithValue("@Product_Name", this.Product_Name);
+        cmd.Parameters.AddWithValue("@Book_Author", this.Book_Author);
+
+        conn.Open();
+        result += cmd.ExecuteNonQuery();
+        conn.Close();
+
+        return result;
+    }//end Insert
+
+    public int RomanceInsert()
+    {
+        int result = 0;
+        string queryStrThriller = "INSERT INTO EL_Romance(EL_ID, EL_Image, EL_Title, EL_Studio)" + "values (@Product_ID, @Product_Name, @Product_Image, @Book_Author)";
+
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStrThriller, conn);
+        cmd.Parameters.AddWithValue("@Product_ID", this.Product_ID);
+        cmd.Parameters.AddWithValue("@Product_Image", this.Product_Image);
+        cmd.Parameters.AddWithValue("@Product_Name", this.Product_Name);
+        cmd.Parameters.AddWithValue("@Book_Author", this.Book_Author);
+
+        conn.Open();
+        result += cmd.ExecuteNonQuery();
+        conn.Close();
+
+        return result;
+    }//end Insert
+
+    public int HorrorInsert()
+    {
+        int result = 0;
+        string queryStrThriller = "INSERT INTO EL_Horror(EL_ID, EL_Image, EL_Title, EL_Studio)" + "values (@Product_ID, @Product_Name, @Product_Image, @Book_Author)";
 
         SqlConnection conn = new SqlConnection(_connStr);
         SqlCommand cmd = new SqlCommand(queryStrThriller, conn);

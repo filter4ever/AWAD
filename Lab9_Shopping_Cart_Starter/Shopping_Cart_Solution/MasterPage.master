@@ -90,6 +90,15 @@
                                 Operator="Equal" Type="String"
                                 ForeColor="Red">
                             </asp:CompareValidator>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
+                                ErrorMessage="Minimum eight characters, at least one uppercase letter, one lowercase letter and one number" 
+                                ValidationExpression="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" 
+                                ControlToValidate="txt_RegPassword" Font-Size="X-Small"></asp:RegularExpressionValidator>
+                                <%--At least one upper case English letter, (?=.*?[A-Z])
+                                At least one lower case English letter, (?=.*?[a-z])
+                                At least one digit, (?=.*?[0-9])
+                                At least one special character, (?=.*?[#?!@$%^&*-])
+                                Minimum eight in length .{8,} (with the anchors)--%>
                             <asp:Button ID="btnRegister" class="btnsignin" runat="server" Text="Create Account" OnClick="btnRegister_Click" />
                         </div>
 
@@ -154,13 +163,13 @@
                 <div class="btmnav">
                     
                     <div class="dropdownbooks">
-                        <button>Limited Sales</button>
-                        <div class="dropdownbooks-content">
+                        <a href="BestSeller.aspx">Best Sellers</a>
+                        <%--<div class="dropdownbooks-content">
                             <a style="font-family: 'Oswald', sans-serif;">BESTSELLERS</a>
                             <a style="font-family: 'Oswald', sans-serif;">CATEGORIES</a>
                             <a style="font-family: 'Oswald', sans-serif;">FEATURED</a>
                             <a style="font-family: 'Oswald', sans-serif;">DISCOVER</a>
-                            <%--This link below will be the page we will code with all the products.--%>
+                            <!--This link below will be the page we will code with all the products.-->
                             <a style="font-size: 10px;" href="BestSeller.aspx">SB's Bestsellers</a>
                             <a style="font-size: 10px;" href="#">Biography</a>
                             <a style="font-size: 10px;" href="#">SB Classics</a>
@@ -209,7 +218,7 @@
                             <a style="font-size: 10px; color: gray" href="#">See More ></a>
                             <a style="font-size: 10px;" href="#"></a>
                             <a style="font-size: 10px;" href="#"></a>
-                        </div>
+                        </div>--%>
                     </div>
                     
                     <a href="#">Popular</a>

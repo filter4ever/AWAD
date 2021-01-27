@@ -10,6 +10,28 @@
         <link rel="stylesheet" type="text/css" href="assets/css/index.css" />
     </head>
     <body>
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                <div class="numbertext">1 / 3</div>
+                <img src="images/aotbanner.jpg" style="width: 100%">
+                <div class="textforslide">Test</div>
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">2 / 3</div>
+                <img src="images/2.jpg" style="width: 100%">
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">3 / 3</div>
+                <img src="images/3.jpg" style="width: 100%">
+            </div>
+             <%-- Add the prev and next buttons for the user to click -- %>
+             <%-- when clicked it calls on plusSlides()--%>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+
         <div class="collage">
             <div class="zone1"></div>
             <div class="zone2"></div>

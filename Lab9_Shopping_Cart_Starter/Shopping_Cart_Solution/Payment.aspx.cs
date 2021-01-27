@@ -149,6 +149,8 @@ public partial class Payment : BasePage
 
         com.ExecuteNonQuery();
 
+        ShoppingCart.Instance.clearShopCart();
+
         Response.Redirect("index.aspx");
 
         conn.Close();
