@@ -198,6 +198,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
             if (password == txt_AdminPassword.Text)
             {
+                Session["Email"] = txt_AdminEmail.Text;
                 Response.Redirect("Admin-index.aspx");
             }
             else

@@ -165,6 +165,25 @@ public class Product
 
         return result;
     }//end Insert
+
+    public int ProductUpdate(int ID)
+    {
+        int result = 0;
+        string queryStr = "UPDATE ALL_Products Title = @Product_Name, Price = @Unit_Price, Image = @Product_Image) WHERE ID = @ID";
+
+        SqlConnection conn = new SqlConnection(_connStr);
+        SqlCommand cmd = new SqlCommand(queryStr, conn);
+        cmd.Parameters.AddWithValue("@Product_Name", this.Product_Name);
+        cmd.Parameters.AddWithValue("@Unit_Price", this.Unit_Price);
+        cmd.Parameters.AddWithValue("@Product_Image", this.Product_Image);
+        cmd.Parameters.AddWithValue("@ID", ID);
+
+        conn.Open();
+        cmd.ExecuteNonQuery();
+        conn.Close();
+
+        return result;
+    }//end Insert
 }
 
 public class Thriller

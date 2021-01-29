@@ -12,6 +12,8 @@ using System.IO;
 
 public partial class BestSeller : System.Web.UI.Page
 {
+    Product prod = null;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.IsPostBack)
@@ -165,6 +167,10 @@ public partial class BestSeller : System.Web.UI.Page
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
+
+            Product aProd = new Product();
+            prod = aProd.getProduct(bookId.ToString());
+            prod.ProductUpdate(bookId);
         }
         //display
         this.BindRepeater();
@@ -201,6 +207,7 @@ public partial class BestSeller : System.Web.UI.Page
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
+
         }
         //display
         this.BindRepeater();

@@ -15,7 +15,10 @@ public partial class otp : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (Session["otp"] == null)
+        {
+            Response.Redirect("index.aspx");
+        }
     }
 
     protected void otpValidate(object sender, EventArgs e)
@@ -46,8 +49,10 @@ public partial class otp : System.Web.UI.Page
             }
 
             Session["otp"] = null;
+            Session["Email"] = email;
             Session["CHANGE_MASTERPAGE"] = "~/AfterLogin.Master";
             Session["CHANGE_MASTERPAGE2"] = null;
+            Session["rank"] = "user";
             Response.Write("<script language=javascript>alert('Logged In!')</script>");
             Response.Redirect("index.aspx");
         }
