@@ -170,7 +170,7 @@ public partial class BestSeller : System.Web.UI.Page
 
             Product aProd = new Product();
             prod = aProd.getProduct(bookId.ToString());
-            prod.ProductUpdate(bookId);
+            prod.ProductUpdate(bookId, name, price, image);
         }
         //display
         this.BindRepeater();

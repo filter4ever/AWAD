@@ -166,16 +166,16 @@ public class Product
         return result;
     }//end Insert
 
-    public int ProductUpdate(int ID)
+    public int ProductUpdate(int ID, string name, string studio, string image)
     {
         int result = 0;
-        string queryStr = "UPDATE ALL_Products Title = @Product_Name, Price = @Unit_Price, Image = @Product_Image) WHERE ID = @ID";
+        string queryStr = "UPDATE ALL_Products SET Title = @Product_Name, Author = @Unit_Price, Image = @Product_Image WHERE ID = @ID";
 
         SqlConnection conn = new SqlConnection(_connStr);
         SqlCommand cmd = new SqlCommand(queryStr, conn);
-        cmd.Parameters.AddWithValue("@Product_Name", this.Product_Name);
-        cmd.Parameters.AddWithValue("@Unit_Price", this.Unit_Price);
-        cmd.Parameters.AddWithValue("@Product_Image", this.Product_Image);
+        cmd.Parameters.AddWithValue("@Product_Name", name);
+        cmd.Parameters.AddWithValue("@Unit_Price", studio);
+        cmd.Parameters.AddWithValue("@Product_Image", image);
         cmd.Parameters.AddWithValue("@ID", ID);
 
         conn.Open();
