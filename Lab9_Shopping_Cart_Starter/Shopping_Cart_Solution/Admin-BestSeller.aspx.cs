@@ -207,7 +207,9 @@ public partial class BestSeller : System.Web.UI.Page
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
-
+            Product aProd = new Product();
+            prod = aProd.getProduct(bookId.ToString());
+            prod.ProductUpdate(bookId, name, price, image);
         }
         //display
         this.BindRepeater();
@@ -243,6 +245,9 @@ public partial class BestSeller : System.Web.UI.Page
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
+            Product aProd = new Product();
+            prod = aProd.getProduct(bookId.ToString());
+            prod.ProductUpdate(bookId, name, price, image);
         }
         //display
         this.BindRepeater();
@@ -278,6 +283,9 @@ public partial class BestSeller : System.Web.UI.Page
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
+            Product aProd = new Product();
+            prod = aProd.getProduct(bookId.ToString());
+            prod.ProductUpdate(bookId, name, price, image);
         }
         //display
         this.BindRepeater();
@@ -313,6 +321,9 @@ public partial class BestSeller : System.Web.UI.Page
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
+            Product aProd = new Product();
+            prod = aProd.getProduct(bookId.ToString());
+            prod.ProductUpdate(bookId, name, price, image);
         }
         //display
         this.BindRepeater();

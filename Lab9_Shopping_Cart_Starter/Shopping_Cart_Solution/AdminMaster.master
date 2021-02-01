@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <a href="Admin-Users.aspx">Manage Users</a>
-                    <a href="#">Manage Orders</a>
+                    <a href="Admin-Chart.aspx">Orders Stats</a>
                 </div>
 
                 <div class="midnav">

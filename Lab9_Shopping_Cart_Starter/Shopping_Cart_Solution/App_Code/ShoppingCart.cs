@@ -92,6 +92,24 @@ public class ShoppingCart
         }
     }
 
+    public int GetItemQuantity(string ProductID)
+    {
+        ShoppingCartItem updatedItem = new ShoppingCartItem(ProductID);
+
+        int quantity = 0;
+
+        foreach (ShoppingCartItem Item in Items)
+        {
+            if (Item.Equals(updatedItem))
+            {
+                quantity = Item.Quantity;
+            }
+        }
+
+        return quantity;
+    }
+
+
     // Remove a ShoppingCartItem from the ShoppingCart Instance by providing a Product ID 
     public void RemoveItem(string ProductID)
     {

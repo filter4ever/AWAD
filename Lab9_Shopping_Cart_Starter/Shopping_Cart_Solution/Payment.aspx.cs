@@ -10,6 +10,7 @@ using System.Configuration;
 using System.IO;
 using System.Text;
 using System.Data;
+using System.Diagnostics;
 
 public partial class Payment : BasePage
 {
@@ -134,8 +135,34 @@ public partial class Payment : BasePage
 
         conn.Open();
 
-        string insertQuery = "INSERT INTO ORDERS (OrderID, FirstName, LastName, Address, ZipCode, PhoneNo) " +
-            "VALUES (@ID, @first, @last, @address, @zip, @phone)";
+        foreach (ShoppingCartItem item in ShoppingCart.Instance.Items)
+        {
+            int quantity = ShoppingCart.Instance.GetItemQuantity(item.ItemID);
+            decimal totalPrice = item.TotalPrice;
+
+            SqlCommand qcmd = new SqlCommand("SELECT QUANTITY FROM ALL_PRODUCTS WHERE ID = @ID", conn);
+            qcmd.Parameters.AddWithValue("@ID", item.ItemID);
+            int currentQuantity  = int.Parse(qcmd.ExecuteScalar().ToString());
+
+            int totalQuantity = quantity + currentQuantity;
+
+            SqlCommand pcmd = new SqlCommand("SELECT TOTALPRICE FROM ALL_PRODUCTS WHERE ID = @ID", conn);
+            pcmd.Parameters.AddWithValue("@ID", item.ItemID);
+            decimal currentTotalPrice = decimal.Parse(pcmd.ExecuteScalar().ToString());
+
+            decimal newTotalPrice = totalPrice + currentTotalPrice;
+
+            SqlCommand update = new SqlCommand("UPDATE ALL_PRODUCTS SET QUANTITY = @QUANTITY, TOTALPRICE = @TOTALPRICE WHERE ID = @ID", conn);
+            update.Parameters.AddWithValue("@QUANTITY", totalQuantity);
+            update.Parameters.AddWithValue("@TOTALPRICE", newTotalPrice);
+            update.Parameters.AddWithValue("@ID", item.ItemID);
+            update.ExecuteNonQuery();
+
+            Debug.WriteLine(item.TotalPrice);
+        }
+
+        string insertQuery = "INSERT INTO ORDERS (OrderID, FirstName, LastName, Address, ZipCode, PhoneNo, totalPrice) " +
+            "VALUES (@ID, @first, @last, @address, @zip, @phone, @totalPrice)";
 
         SqlCommand com = new SqlCommand(insertQuery, conn);
 
@@ -145,7 +172,7 @@ public partial class Payment : BasePage
         com.Parameters.AddWithValue("@address", txtAddress.Text);
         com.Parameters.AddWithValue("@zip", txtZipCode.Text);
         com.Parameters.AddWithValue("@phone", txtPhoneNumber.Text);
-
+        com.Parameters.AddWithValue("@totalPrice", lbl_TotalPrice2.Text.Replace("$",""));
 
         com.ExecuteNonQuery();
 

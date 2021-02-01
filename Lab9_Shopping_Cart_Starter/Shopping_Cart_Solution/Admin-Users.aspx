@@ -20,7 +20,7 @@
 
     <body>
         <div class="GVcontainer">
-            <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="False" AllowPaging="True" DataKeyNames="Id" DataSourceID="SqlDataSource1" OnRowDeleting="gvUsers_RowDeleting">
+            <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="False" AllowPaging="True" DataKeyNames="Id" DataSourceID="SqlDataSource1" OnRowDeleting="gvUsers_RowDeleting" Width="1191px">
                 <Columns>
                     <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" />
                     <asp:BoundField DataField="Last_Name" HeaderText="Last_Name" SortExpression="Last_Name" />
