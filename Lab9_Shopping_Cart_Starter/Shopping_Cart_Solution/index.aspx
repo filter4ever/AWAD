@@ -6,7 +6,7 @@
     <!DOCTYPE html>
     <html>
     <head>
-        <title>Sunny V2</title>
+        <title>Element</title>
         <link rel="stylesheet" type="text/css" href="assets/css/index.css" />
     </head>
     <body>

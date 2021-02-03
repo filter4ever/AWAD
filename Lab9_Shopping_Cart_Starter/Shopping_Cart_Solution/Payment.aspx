@@ -142,9 +142,22 @@
                     runat="server"
                     ErrorMessage="Please enter your first name."
                     ControlToValidate="txtFirstName"
-                    Font-Size="Small"
-                    ForeColor="Red">
+                    Font-Size="X-Small"
+                    ForeColor="Red" 
+                    Display="Dynamic"
+                    CssClass="align-top">
                 </asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator 
+                    ID="RegularExpressionValidator1" 
+                    runat="server" 
+                    ErrorMessage="Invalid first name" 
+                    ControlToValidate="txtFirstName" 
+                    Font-Size="X-Small"
+                    ValidationExpression="^[a-zA-Z]+$" 
+                    ForeColor="Red"
+                    Display="Dynamic"
+                    CssClass="align-top">
+                </asp:RegularExpressionValidator>
 
                 <asp:TextBox ID="txtLastName" runat="server" CssClass="shippingtxt" PlaceHolder="Last Name"></asp:TextBox>
                 <asp:RequiredFieldValidator
@@ -152,9 +165,22 @@
                     runat="server"
                     ErrorMessage="Please enter your last name."
                     ControlToValidate="txtLastName"
-                    Font-Size="Small"
-                    ForeColor="Red">
+                    Font-Size="X-Small"
+                    ForeColor="Red"
+                    Display="Dynamic"
+                    CssClass="align-top">
                 </asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator 
+                    ID="RegularExpressionValidator2" 
+                    runat="server" 
+                    ErrorMessage="Invalid last name" 
+                    ControlToValidate="txtLastName" 
+                    Font-Size="X-Small"
+                    ValidationExpression="^[a-zA-Z]+$" 
+                    Display="Dynamic"
+                    ForeColor="Red"
+                    CssClass="align-top">
+                </asp:RegularExpressionValidator>
 
                 <asp:TextBox ID="txtAddress" runat="server" CssClass="shippingtxt" PlaceHolder="Street Address"></asp:TextBox>
                 <asp:RequiredFieldValidator
@@ -162,8 +188,9 @@
                     runat="server"
                     ErrorMessage="Please enter your address."
                     ControlToValidate="txtAddress"
-                    Font-Size="Small"
-                    ForeColor="Red">
+                    Font-Size="X-Small"
+                    ForeColor="Red"
+                    CssClass="align-top">
                 </asp:RequiredFieldValidator>
 
                 <asp:TextBox ID="txtSuite" runat="server" CssClass="shippingtxt" PlaceHolder="Apt/Suite [Optional]"></asp:TextBox>
@@ -172,6 +199,28 @@
                     PlaceHolder="Zip Code" Style="width: 49%; float: left; margin-top: 20px" required></asp:TextBox>
                 <asp:TextBox ID="txtPhoneNumber" runat="server" CssClass="shippingtxt"
                     PlaceHolder="Phone Number" Style="width: 49%; float: right; margin-top: 20px" required></asp:TextBox>
+                <asp:RegularExpressionValidator
+                    ID="RegularExpressionValidator3" 
+                    runat="server" 
+                    ErrorMessage="Invalid ZipCode (6-digits)" 
+                    ControlToValidate="txtZipCode"
+                    ValidationExpression="^\d{6}$"
+                    Width="49%"
+                    ForeColor="Red" 
+                    Font-Size="X-Small"
+                    CssClass="align-top">
+                </asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator 
+                    ID="RegularExpressionValidator4" 
+                    runat="server" 
+                    ErrorMessage="Invalid Phone Number (Must start with 6,8 or 9 and 8-digits)" 
+                    ControlToValidate="txtPhoneNumber" 
+                    ValidationExpression="^[896]\d{7}$"
+                    Width="49%"
+                    ForeColor="Red" 
+                    Font-Size="X-Small"
+                    CssClass="align-top">
+                </asp:RegularExpressionValidator>
             </div>
             <br />
 
@@ -180,10 +229,102 @@
                     Billing Information                                                       
                 </div>
                 <asp:TextBox ID="txtCardNo" runat="server" CssClass="shippingtxt" PlaceHolder="Card Number" required></asp:TextBox>
-                <asp:TextBox ID="txtNameOnCard" runat="server" CssClass="shippingtxt" PlaceHolder="Name on Card" required></asp:TextBox>
-                <asp:TextBox ID="txtExpMonth" runat="server" CssClass="shippingtxt" PlaceHolder="Month of Expiry" Style="width: 49%; float: left" required></asp:TextBox>
-                <asp:TextBox ID="txtExpYear" runat="server" CssClass="shippingtxt" PlaceHolder="Year of Expiry" Style="width: 49%; float: right" required></asp:TextBox>
-                <asp:TextBox ID="txtSecCode" runat="server" CssClass="shippingtxt" PlaceHolder="Security Code" Style="width: 18%; float: left" required></asp:TextBox>
+                <asp:RegularExpressionValidator 
+                    ID="RegularExpressionValidator5" 
+                    runat="server" 
+                    ErrorMessage="Invalid Credit Card Number (Must be Visa, MasterCard, American Express)" 
+                    Display="Dynamic"
+                    ControlToValidate="txtCardNo" 
+                    Font-Size="X-Small"
+                    ValidationExpression="^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$"
+                    ForeColor="Red"
+                    CssClass="align-top">
+                </asp:RegularExpressionValidator>
+                <asp:TextBox ID="txtNameOnCard" runat="server" CssClass="shippingtxt" PlaceHolder="Name on Card" Width="100%"></asp:TextBox>
+                <asp:RequiredFieldValidator 
+                    ID="RequiredFieldValidator4" 
+                    runat="server" 
+                    ErrorMessage="Please Enter Card Name" 
+                    ControlToValidate="txtNameOnCard" 
+                    Font-Size="X-Small" 
+                    ForeColor="Red" 
+                    CssClass="align-top"
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator 
+                    ID="RegularExpressionValidator6" 
+                    runat="server" 
+                    ErrorMessage="Invalid Card Name" 
+                    ControlToValidate="txtNameOnCard" 
+                    Font-Size="X-Small" 
+                    ForeColor="Red" 
+                    CssClass="align-top" 
+                    Display="Dynamic">
+                </asp:RegularExpressionValidator>
+                <br />
+
+                <asp:TextBox ID="txtExpMonth" runat="server" CssClass="shippingtxt" PlaceHolder="Month of Expiry" Style="width: 49%; float: left"></asp:TextBox>
+                <asp:TextBox ID="txtExpYear" runat="server" CssClass="shippingtxt" PlaceHolder="Year of Expiry" Style="width: 49%; float: right"></asp:TextBox>
+                <asp:RequiredFieldValidator 
+                    ID="RequiredFieldValidator5" 
+                    runat="server" 
+                    ErrorMessage="Please Enter Expiry Month (01-12)" 
+                    ControlToValidate="txtExpMonth" 
+                    Font-Size="X-Small" 
+                    ForeColor="Red" 
+                    CssClass="align-top"
+                    Width="49%">
+                </asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator 
+                    ID="RegularExpressionValidator7" 
+                    runat="server" 
+                    ErrorMessage="Invalid Expiry Year (01-12)" 
+                    ControlToValidate="txtExpMonth" 
+                    ValidationExpression="0[1-9]|1[0-2]"
+                    Font-Size="X-Small" 
+                    ForeColor="Red" 
+                    CssClass="align-top" 
+                    Display="Dynamic" 
+                    Width="49%">
+                </asp:RegularExpressionValidator>
+
+                <asp:RequiredFieldValidator 
+                    ID="RequiredFieldValidator6" 
+                    runat="server" 
+                    ErrorMessage="Please Enter Expiry Year (If 2021, type '21')" 
+                    ControlToValidate="txtExpYear" 
+                    Font-Size="X-Small" 
+                    ForeColor="Red" 
+                    CssClass="align-top"  
+                    Width="49%">
+                </asp:RequiredFieldValidator>
+                <asp:RangeValidator 
+                    ID="RangeValidator1" 
+                    runat="server" 
+                    ErrorMessage="Invalid Expiry Year (If 2021, type '21')"
+                    ControlToValidate="txtExpYear" 
+                    Type="Integer" 
+                    Font-Size="X-Small" 
+                    ForeColor="Red" 
+                    CssClass="align-top" 
+                    Display="Dynamic" 
+                    Width="49%" 
+                    MinimumValue="21" 
+                    MaximumValue="99">
+                </asp:RangeValidator>
+                <br />
+                <asp:TextBox ID="txtSecCode" runat="server" CssClass="shippingtxt" PlaceHolder="Security Code" Style="width: 18%; float: left" ></asp:TextBox>
+                <asp:RegularExpressionValidator 
+                    ID="RegularExpressionValidator8" 
+                    runat="server" 
+                    ErrorMessage="Invalid CVV" 
+                    ValidationExpression="^([0-9]{3,4})$"
+                    Font-Size="X-Small" 
+                    ForeColor="Red" 
+                    CssClass="align-top" 
+                    Display="Dynamic" 
+                    Width="49%">
+                </asp:RegularExpressionValidator>
             </div>
         </div>
 

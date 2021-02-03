@@ -352,6 +352,12 @@ public partial class BestSeller : System.Web.UI.Page
                 cmd.ExecuteNonQuery();
                 con.Close();
             }
+
+            SqlCommand rmcmd = new SqlCommand("DELETE FROM ALL_PRODUCTS WHERE ID = @ID", con);
+            rmcmd.Parameters.AddWithValue("@ID", bookId);
+            con.Open();
+            rmcmd.ExecuteNonQuery();
+            con.Close();
         }
         this.BindRepeater();
     }
