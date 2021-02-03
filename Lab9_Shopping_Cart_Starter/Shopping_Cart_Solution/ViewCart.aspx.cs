@@ -107,6 +107,6 @@ public partial class ViewCart : BasePage
             Response.Write("language=javascript>alert('Nothing in Cart');</script>");
             Response.Redirect(Request.Url.AbsoluteUri);
         }
-        Response.Redirect("Payment.aspx");
+        Response.Redirect("Payment");
     }
 }

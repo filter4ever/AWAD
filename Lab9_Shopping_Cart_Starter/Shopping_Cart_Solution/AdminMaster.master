@@ -21,23 +21,23 @@
                         <a href="#">
                             <asp:Label ID="lblAftLogin" runat="server" Text="ADMIN" Font-Bold="True"></asp:Label></a>
                         <div class="topnavdd-content">
-                            <a href="index.aspx" style="font-family: 'Oswald', sans-serif; color: #EC7063">Sign Out</a>
+                            <a href="home" style="font-family: 'Oswald', sans-serif; color: #EC7063">Sign Out</a>
                         </div>
                     </div>
-                    <a href="Admin-Users.aspx">Manage Users</a>
-                    <a href="Admin-Chart.aspx">Orders Stats</a>
+                    <a href="AdminManageUsers">Manage Users</a>
+                    <a href="AdminCharts">Orders Stats</a>
                 </div>
 
                 <div class="midnav">
                     <a style="color: #3270a6; float: left; margin-left: 10px; font-size: 32px; font-family: 'Anton', sans-serif;"
-                        href="Admin-index.aspx">Element 2.0
+                        href="Adminhome">Element 2.0
                     </a>
                 </div>
 
                 <div class="btmnav">
                     
                     <div class="dropdownbooks">
-                        <a href="Admin-BestSeller.aspx">Best Sellers</a>
+                        <a href="AdminShop">Best Sellers</a>
                         <%--<div class="dropdownbooks-content">
                             <a style="font-family: 'Oswald', sans-serif;">BESTSELLERS</a>
                             <a style="font-family: 'Oswald', sans-serif;">CATEGORIES</a>

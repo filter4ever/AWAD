@@ -28,6 +28,6 @@ public partial class Admin_Users : System.Web.UI.Page
             Response.Write("<script>alert('Product Removal NOT successful');</script>");
         }
 
-        Response.Redirect("Admin-Users.aspx");
+        Response.Redirect("AdminManageUsers");
     }
 }

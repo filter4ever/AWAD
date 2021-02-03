@@ -224,11 +224,11 @@
             </div>
             <br />
 
-            <div class="billing">
+            <div class="billing" style="height: 310px;">
                 <div class="title" style="text-align: left; font-family: 'Playfair Display', serif; font-size: 25px;">
                     Billing Information                                                       
                 </div>
-                <asp:TextBox ID="txtCardNo" runat="server" CssClass="shippingtxt" PlaceHolder="Card Number" required></asp:TextBox>
+                <asp:TextBox ID="txtCardNo" runat="server" CssClass="shippingtxt" PlaceHolder="Card Number"></asp:TextBox>
                 <asp:RegularExpressionValidator 
                     ID="RegularExpressionValidator5" 
                     runat="server" 
@@ -272,13 +272,14 @@
                     ControlToValidate="txtExpMonth" 
                     Font-Size="X-Small" 
                     ForeColor="Red" 
+                    Display="Dynamic"
                     CssClass="align-top"
                     Width="49%">
                 </asp:RequiredFieldValidator>
                 <asp:RegularExpressionValidator 
                     ID="RegularExpressionValidator7" 
                     runat="server" 
-                    ErrorMessage="Invalid Expiry Year (01-12)" 
+                    ErrorMessage="Invalid Expiry Month (01-12)" 
                     ControlToValidate="txtExpMonth" 
                     ValidationExpression="0[1-9]|1[0-2]"
                     Font-Size="X-Small" 
@@ -295,6 +296,7 @@
                     ControlToValidate="txtExpYear" 
                     Font-Size="X-Small" 
                     ForeColor="Red" 
+                    Display="Dynamic"
                     CssClass="align-top"  
                     Width="49%">
                 </asp:RequiredFieldValidator>
@@ -314,10 +316,21 @@
                 </asp:RangeValidator>
                 <br />
                 <asp:TextBox ID="txtSecCode" runat="server" CssClass="shippingtxt" PlaceHolder="Security Code" Style="width: 18%; float: left" ></asp:TextBox>
+                <asp:RequiredFieldValidator 
+                    ID="RequiredFieldValidator7" 
+                    runat="server" 
+                    ErrorMessage="Please Enter CVV"
+                    ControlToValidate="txtSecCode" 
+                    Font-Size="X-Small" 
+                    ForeColor="Red" 
+                    CssClass="align-top" 
+                    Display="Dynamic">
+                </asp:RequiredFieldValidator>
                 <asp:RegularExpressionValidator 
                     ID="RegularExpressionValidator8" 
                     runat="server" 
                     ErrorMessage="Invalid CVV" 
+                    ControlToValidate="txtSecCode"
                     ValidationExpression="^([0-9]{3,4})$"
                     Font-Size="X-Small" 
                     ForeColor="Red" 

@@ -19,7 +19,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         Session["Search"] = txtSearch.Text;
-        Response.Redirect("Search.aspx");
+        Response.Redirect("Search");
     }
 
     protected void btnSignOut_Click(object sender, EventArgs e)

@@ -450,25 +450,25 @@ public partial class BestSeller : System.Web.UI.Page
 
     protected void btnAddThriller_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Admin-InsertThriller.aspx");
+        Response.Redirect("InsertThriller");
     }
 
     protected void btnAddAction_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Admin-InsertAction.aspx");
+        Response.Redirect("InsertAction");
     }
     protected void btnAddComedy_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Admin-InsertComedy.aspx");
+        Response.Redirect("InsertComedy");
     }
 
     protected void btnAddRomance_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Admin-InsertRomance.aspx");
+        Response.Redirect("InsertRomance");
     }
 
     protected void btnAddHorror_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Admin-InsertHorror.aspx");
+        Response.Redirect("InsertHorror");
     }
 }

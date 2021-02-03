@@ -144,14 +144,14 @@
                     <div class="midnavright">
                         <a href="#"><i style="color: black;" class="material-icons">location_on</i></a>
                         <%--This shopping cart icon will allow users to view their online cart.--%>
-                        <a href="ViewCart.aspx"><i style="color: #3270a6" class="material-icons">shopping_cart</i></a>
+                        <a href="Cart"><i style="color: #3270a6" class="material-icons">shopping_cart</i></a>
                     </div>
                 </div>
 
                 <div class="btmnav">
                     
                     <div class="dropdownbooks">
-                        <a href="BestSeller.aspx">Best Sellers</a>
+                        <a href="Shop">Best Sellers</a>
                         <%--<div class="dropdownbooks-content">
                             <a style="font-family: 'Oswald', sans-serif;">BESTSELLERS</a>
                             <a style="font-family: 'Oswald', sans-serif;">CATEGORIES</a>

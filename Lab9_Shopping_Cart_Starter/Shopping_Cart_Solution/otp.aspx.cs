@@ -17,7 +17,7 @@ public partial class otp : System.Web.UI.Page
     {
         if (Session["otp"] == null)
         {
-            Response.Redirect("index.aspx");
+            Response.Redirect("home");
         }
     }
 
@@ -54,7 +54,7 @@ public partial class otp : System.Web.UI.Page
             Session["CHANGE_MASTERPAGE2"] = null;
             Session["rank"] = "user";
             Response.Write("<script language=javascript>alert('Logged In!')</script>");
-            Response.Redirect("index.aspx");
+            Response.Redirect("home");
         }
     }
 }

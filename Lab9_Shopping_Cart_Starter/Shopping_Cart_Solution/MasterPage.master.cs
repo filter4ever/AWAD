@@ -21,7 +21,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         Session["Search"] = txtSearch.Text;
-        Response.Redirect("Search.aspx");
+        Response.Redirect("Search");
     }
 
     protected void btnRegister_Click(object sender, EventArgs e)
@@ -151,7 +151,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 {
                     Debug.WriteLine(ex.ToString());
                 }
-                Response.Redirect("otp.aspx");
+                Response.Redirect("OTP");
             }
             else
             {
@@ -199,7 +199,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
             if (password == txt_AdminPassword.Text)
             {
                 Session["Email"] = txt_AdminEmail.Text;
-                Response.Redirect("Admin-index.aspx");
+                Response.Redirect("Adminhome");
             }
             else
             {
@@ -245,7 +245,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
             //Random generator = new Random();
             //string otp = generator.Next(0, 1000000).ToString("D6");
-            string resetpw = "http://" + HttpContext.Current.Request.Url.Authority + "/ResetPassword.aspx";
+            string resetpw = "http://" + HttpContext.Current.Request.Url.Authority + "/ResetPW";
 
             MailMessage message = new MailMessage(from, to);
             message.Subject = "Reset Password";

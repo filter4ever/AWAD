@@ -62,6 +62,6 @@ public partial class Admin_InsertThriller : System.Web.UI.Page
 
     protected void btnBack_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Admin-BestSeller.aspx");
+        Response.Redirect("AdminShop");
     }
 }

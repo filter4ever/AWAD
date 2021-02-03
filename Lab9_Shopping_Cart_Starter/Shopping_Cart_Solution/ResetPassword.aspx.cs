@@ -59,7 +59,7 @@ public partial class ResetPassword : System.Web.UI.Page
 
                 Session["resetPw"] = null;
                 Response.Write("<script language=javascript>alert('Password is Reset!')</script>");
-                Response.Redirect("index.aspx");
+                Response.Redirect("home");
             }
         }
     }

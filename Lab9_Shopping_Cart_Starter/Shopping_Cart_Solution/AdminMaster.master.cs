@@ -19,7 +19,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         }
         else
         {
-            Response.Redirect("BestSeller.aspx");
+            Response.Redirect("home");
         }
     }
 }
