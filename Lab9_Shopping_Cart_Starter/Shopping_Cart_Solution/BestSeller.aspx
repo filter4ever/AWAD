@@ -56,7 +56,7 @@
             </div>
         </div>--%>
 
-        <div class="bookcontainer">
+
             <div class="containertitle">
                 THRILLER
             </div>
@@ -72,7 +72,7 @@
                     </ItemTemplate>
                 </asp:Repeater>
             </div>
-            
+
             <div class="containertitle">
                 ACTION
             </div>
@@ -88,7 +88,7 @@
                     </ItemTemplate>
                 </asp:Repeater>
             </div>
-            
+
             <div class="containertitle">
                 COMEDY
             </div>
@@ -104,7 +104,7 @@
                     </ItemTemplate>
                 </asp:Repeater>
             </div>
-            
+
             <div class="containertitle">
                 ROMANCE
             </div>
@@ -120,7 +120,7 @@
                     </ItemTemplate>
                 </asp:Repeater>
             </div>
-            
+
             <div class="containertitle">
                 HORROR
             </div>
@@ -136,8 +136,6 @@
                     </ItemTemplate>
                 </asp:Repeater>
             </div>
-        </div>
     </body>
     </html>
 </asp:Content>
-

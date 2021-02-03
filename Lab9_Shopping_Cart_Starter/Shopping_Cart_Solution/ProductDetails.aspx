@@ -64,7 +64,7 @@
                 ✔&nbsp Spend a Minimum of $30 to get Free Shipping
             </div>
 
-            <div class="bookpurchase">
+            <div class="bookpurchase" style="width: 100%;">
                 <asp:Button ID="btnAddCart" runat="server" Text="ADD TO CART" class="cartbutton" OnClick="btnAddToCart_Click" />
             </div>
 

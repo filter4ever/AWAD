@@ -102,6 +102,11 @@ public partial class ViewCart : BasePage
 
     protected void btnCheckOut_Click(object sender, EventArgs e)
     {
+        if (lbl_TotalPrice2.Text == "$0.00")
+        {
+            Response.Write("language=javascript>alert('Nothing in Cart');</script>");
+            Response.Redirect(Request.Url.AbsoluteUri);
+        }
         Response.Redirect("Payment.aspx");
     }
 }
